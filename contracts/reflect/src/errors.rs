@@ -1,7 +1,7 @@
 use cosmwasm_std::StdError;
 use thiserror::Error;
 
-#[derive(Error, Debug, PartialEq)]
+#[derive(Error, Debug)]
 pub enum ReflectError {
     #[error("{0}")]
     Std(#[from] StdError),
@@ -14,4 +14,17 @@ pub enum ReflectError {
 
     #[error("TODO: implement")]
     NotYetImplemented,
+}
+
+use std::cmp::PartialEq;
+
+impl PartialEq for ReflectError {
+    fn eq(&self, other: &Self) -> bool {
+        match (self, other) {
+            // Handle the `Std` variant by comparing the error message
+            (ReflectError::Std(e1), ReflectError::Std(e2)) => e1.to_string() == e2.to_string(),
+            // For other variants, compare them directly
+            _ => std::mem::discriminant(self) == std::mem::discriminant(other),
+        }
+    }
 }

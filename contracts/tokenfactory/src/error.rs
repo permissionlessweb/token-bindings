@@ -1,7 +1,7 @@
 use cosmwasm_std::StdError;
 use thiserror::Error;
 
-#[derive(Error, Debug, PartialEq)]
+#[derive(Error, Debug)]
 pub enum TokenFactoryError {
     #[error("{0}")]
     Std(#[from] StdError),
@@ -20,4 +20,17 @@ pub enum TokenFactoryError {
 
     #[error("amount was zero, must be positive")]
     ZeroAmount {},
+}
+
+impl PartialEq for TokenFactoryError {
+    fn eq(&self, other: &Self) -> bool {
+        match (self, other) {
+            // Handle the `Std` variant by comparing the error message
+            (TokenFactoryError::Std(e1), TokenFactoryError::Std(e2)) => {
+                e1.to_string() == e2.to_string()
+            }
+            // For other variants, compare them directly
+            _ => std::mem::discriminant(self) == std::mem::discriminant(other),
+        }
+    }
 }

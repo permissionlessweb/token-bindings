@@ -142,30 +142,26 @@ mod copied_from_cw_utils {
         let field = data[0] >> 3;
 
         if field != field_number {
-            return Err(StdError::parse_err(
-                "length_prefix_field",
+            return Err(StdError::msg(
                 format!(
-                    "failed to decode Protobuf message: invalid field #{} for field #{}",
+                    "length_prefix_field: failed to decode Protobuf message: invalid field #{} for field #{}",
                     field, field_number
                 ),
             ));
         }
         if wire_type != WIRE_TYPE_LENGTH_DELIMITED {
-            return Err(StdError::parse_err(
-                "length_prefix_field",
-                format!(
-                    "failed to decode Protobuf message: field #{}: invalid wire type {}",
-                    field_number, wire_type
-                ),
-            ));
+            return Err(StdError::msg(format!(
+                "failed to decode Protobuf message: field #{}: invalid wire type {}",
+                field_number, wire_type
+            )));
         }
 
         let len = parse_protobuf_varint(&mut rest_1, field_number)?;
         if rest_1.len() < len {
-            return Err(StdError::parse_err(
-                "length_prefix_field",
+            return Err(StdError::msg(
+     
                 format!(
-                    "failed to decode Protobuf message: field #{}: message too short",
+                    "length_prefix_field: failed to decode Protobuf message: field #{}: message too short",
                     field_number
                 ),
             ));
@@ -183,10 +179,9 @@ mod copied_from_cw_utils {
         let mut i = 0;
         while i < VARINT_MAX_BYTES {
             if data_len == i {
-                return Err(StdError::parse_err(
-                    "varint",
+                return Err(StdError::msg(
                     format!(
-                        "failed to decode Protobuf message: field #{}: varint data too short",
+                        "varint: failed to decode Protobuf message: field #{}: varint data too short",
                         field_number
                     ),
                 ));
@@ -198,10 +193,9 @@ mod copied_from_cw_utils {
             i += 1;
         }
         if i == VARINT_MAX_BYTES {
-            return Err(StdError::parse_err(
-                "varint",
+            return Err(StdError::msg(
                 format!(
-                    "failed to decode Protobuf message: field #{}: varint data too long",
+                    "varint: failed to decode Protobuf message: field #{}: varint data too long",
                     field_number
                 ),
             ));

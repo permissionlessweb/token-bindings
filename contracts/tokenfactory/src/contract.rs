@@ -1,7 +1,7 @@
 #[cfg(not(feature = "library"))]
 use cosmwasm_std::entry_point;
 use cosmwasm_std::{
-    to_binary, Binary, Deps, DepsMut, Env, MessageInfo, Response, StdResult, Uint128,
+    to_json_binary, Binary, Deps, DepsMut, Env, MessageInfo, Response, StdResult, Uint128,
 };
 use cw2::set_contract_version;
 
@@ -174,7 +174,7 @@ pub fn query(deps: Deps<TokenFactoryQuery>, _env: Env, msg: QueryMsg) -> StdResu
         QueryMsg::GetDenom {
             creator_address,
             subdenom,
-        } => to_binary(&get_denom(deps, creator_address, subdenom)),
+        } => to_json_binary(&get_denom(deps, creator_address, subdenom)),
     }
 }
 
@@ -236,11 +236,11 @@ fn validate_denom(
 mod tests {
     use super::*;
     use cosmwasm_std::testing::{
-        mock_env, mock_info, MockApi, MockQuerier, MockStorage, MOCK_CONTRACT_ADDR,
+        message_info, mock_env, MockApi, MockQuerier, MockStorage, MOCK_CONTRACT_ADDR,
     };
     use cosmwasm_std::{
-        coins, from_binary, Attribute, ContractResult, CosmosMsg, OwnedDeps, Querier, StdError,
-        SystemError, SystemResult,
+        coins, from_json, Attribute, ContractResult, CosmosMsg, OwnedDeps, Querier, SystemError,
+        SystemResult,
     };
     use std::marker::PhantomData;
     use token_bindings::TokenFactoryQuery;
@@ -268,7 +268,7 @@ mod tests {
                     creator_addr,
                     subdenom,
                 } => {
-                    let binary_request = to_binary(a).unwrap();
+                    let binary_request = to_json_binary(a).unwrap();
 
                     if creator_addr.eq("") {
                         return SystemResult::Err(SystemError::InvalidRequest {
@@ -300,7 +300,7 @@ mod tests {
         let mut deps = mock_dependencies();
 
         let msg = InstantiateMsg {};
-        let info = mock_info("creator", &coins(1000, "uosmo"));
+        let info = message_info(&deps.api.addr_make("creator"), &coins(1000, "uosmo"));
 
         let res = instantiate(deps.as_mut(), mock_env(), info, msg).unwrap();
         assert_eq!(0, res.messages.len());
@@ -314,7 +314,7 @@ mod tests {
             subdenom: String::from(DENOM_NAME),
         };
         let response = query(deps.as_ref(), mock_env(), get_denom_query).unwrap();
-        let get_denom_response: GetDenomResponse = from_binary(&response).unwrap();
+        let get_denom_response: GetDenomResponse = from_json(&response).unwrap();
         assert_eq!(
             format!("{}/{}/{}", DENOM_PREFIX, MOCK_CONTRACT_ADDR, DENOM_NAME),
             get_denom_response.denom
@@ -328,7 +328,7 @@ mod tests {
         let subdenom: String = String::from(DENOM_NAME);
 
         let msg = ExecuteMsg::CreateDenom { subdenom };
-        let info = mock_info("creator", &coins(2, "token"));
+        let info = message_info(&deps.api.addr_make("creator"), &coins(2, "token"));
         let res = execute(deps.as_mut(), mock_env(), info, msg).unwrap();
 
         assert_eq!(1, res.messages.len());
@@ -356,7 +356,7 @@ mod tests {
         let subdenom: String = String::from("");
 
         let msg = ExecuteMsg::CreateDenom { subdenom };
-        let info = mock_info("creator", &coins(2, "token"));
+        let info = message_info(&deps.api.addr_make("creator"), &coins(2, "token"));
         let err = execute(deps.as_mut(), mock_env(), info, msg).unwrap_err();
         assert_eq!(
             TokenFactoryError::InvalidSubdenom {
@@ -370,16 +370,16 @@ mod tests {
     fn msg_change_admin_success() {
         let mut deps = mock_dependencies();
 
-        const NEW_ADMIN_ADDR: &str = "newadmin";
+        let new_admin = deps.api.addr_make("creator");
 
-        let info = mock_info("creator", &coins(2, "token"));
+        let info = message_info(&deps.api.addr_make("creator"), &coins(2, "token"));
 
         let full_denom_name: &str =
             &format!("{}/{}/{}", DENOM_PREFIX, MOCK_CONTRACT_ADDR, DENOM_NAME)[..];
 
         let msg = ExecuteMsg::ChangeAdmin {
             denom: String::from(full_denom_name),
-            new_admin_address: String::from(NEW_ADMIN_ADDR),
+            new_admin_address: new_admin.to_string(),
         };
         let res = execute(deps.as_mut(), mock_env(), info, msg).unwrap();
 
@@ -387,7 +387,7 @@ mod tests {
 
         let expected_message = CosmosMsg::from(TokenFactoryMsg::ChangeAdmin {
             denom: String::from(full_denom_name),
-            new_admin_address: String::from(NEW_ADMIN_ADDR),
+            new_admin_address: new_admin.to_string(),
         });
         let actual_message = res.messages.get(0).unwrap();
         assert_eq!(expected_message, actual_message.msg);
@@ -407,7 +407,7 @@ mod tests {
 
         const EMPTY_ADDR: &str = "";
 
-        let info = mock_info("creator", &coins(2, "token"));
+        let info = message_info(&deps.api.addr_make("creator"), &coins(2, "token"));
 
         let msg = ExecuteMsg::ChangeAdmin {
             denom: String::from(DENOM_NAME),
@@ -415,8 +415,8 @@ mod tests {
         };
         let err = execute(deps.as_mut(), mock_env(), info, msg).unwrap_err();
         match err {
-            TokenFactoryError::Std(StdError::GenericErr { msg, .. }) => {
-                assert!(msg.contains("human address too short"))
+            TokenFactoryError::Std(s) => {
+                assert!(s.source().unwrap().to_string().contains("character error"))
             }
             e => panic!("Unexpected error: {:?}", e),
         }
@@ -437,9 +437,9 @@ mod tests {
     fn msg_change_admin_invalid_denom() {
         let mut deps = mock_dependencies();
 
-        const NEW_ADMIN_ADDR: &str = "newadmin";
+        let new_admin = deps.api.addr_make("newadmin");
 
-        let info = mock_info("creator", &coins(2, "token"));
+        let info = message_info(&deps.api.addr_make("creator"), &coins(2, "token"));
 
         // too many parts in denom
         let full_denom_name: &str = &format!(
@@ -449,7 +449,7 @@ mod tests {
 
         let msg = ExecuteMsg::ChangeAdmin {
             denom: String::from(full_denom_name),
-            new_admin_address: String::from(NEW_ADMIN_ADDR),
+            new_admin_address: String::from(new_admin),
         };
         let err = execute(deps.as_mut(), mock_env(), info, msg).unwrap_err();
 
@@ -465,19 +465,18 @@ mod tests {
     fn msg_mint_tokens_success() {
         let mut deps = mock_dependencies();
 
-        const NEW_ADMIN_ADDR: &str = "newadmin";
-
+        let new_admin = deps.api.addr_make("newadmin");
         let mint_amount = Uint128::new(100_u128);
 
         let full_denom_name: &str =
             &format!("{}/{}/{}", DENOM_PREFIX, MOCK_CONTRACT_ADDR, DENOM_NAME)[..];
 
-        let info = mock_info("creator", &coins(2, "token"));
+        let info = message_info(&deps.api.addr_make("creator"), &coins(2, "token"));
 
         let msg = ExecuteMsg::MintTokens {
             denom: String::from(full_denom_name),
             amount: mint_amount,
-            mint_to_address: String::from(NEW_ADMIN_ADDR),
+            mint_to_address: new_admin.to_string(),
         };
         let res = execute(deps.as_mut(), mock_env(), info, msg).unwrap();
 
@@ -486,7 +485,7 @@ mod tests {
         let expected_message = CosmosMsg::from(TokenFactoryMsg::MintTokens {
             denom: String::from(full_denom_name),
             amount: mint_amount,
-            mint_to_address: String::from(NEW_ADMIN_ADDR),
+            mint_to_address: new_admin.to_string(),
         });
         let actual_message = res.messages.get(0).unwrap();
         assert_eq!(expected_message, actual_message.msg);
@@ -504,17 +503,16 @@ mod tests {
     fn msg_mint_invalid_denom() {
         let mut deps = mock_dependencies();
 
-        const NEW_ADMIN_ADDR: &str = "newadmin";
-
+        let new_admin = deps.api.addr_make("creator");
         let mint_amount = Uint128::new(100_u128);
 
-        let info = mock_info("creator", &coins(2, "token"));
+        let info = message_info(&deps.api.addr_make("creator"), &coins(2, "token"));
 
         let full_denom_name: &str = &format!("{}/{}", DENOM_PREFIX, MOCK_CONTRACT_ADDR)[..];
         let msg = ExecuteMsg::MintTokens {
             denom: String::from(full_denom_name),
             amount: mint_amount,
-            mint_to_address: String::from(NEW_ADMIN_ADDR),
+            mint_to_address: String::from(new_admin),
         };
         let err = execute(deps.as_mut(), mock_env(), info, msg).unwrap_err();
         let expected_error = TokenFactoryError::InvalidDenom {
@@ -533,7 +531,7 @@ mod tests {
         let full_denom_name: &str =
             &format!("{}/{}/{}", DENOM_PREFIX, MOCK_CONTRACT_ADDR, DENOM_NAME)[..];
 
-        let info = mock_info("creator", &coins(2, "token"));
+        let info = message_info(&deps.api.addr_make("creator"), &coins(2, "token"));
 
         let msg = ExecuteMsg::BurnTokens {
             denom: String::from(full_denom_name),
@@ -569,7 +567,7 @@ mod tests {
         let full_denom_name: &str =
             &format!("{}/{}/{}", DENOM_PREFIX, MOCK_CONTRACT_ADDR, DENOM_NAME)[..];
 
-        let info = mock_info("creator", &coins(2, "token"));
+        let info = message_info(&deps.api.addr_make("creator"), &coins(2, "token"));
 
         let msg = ExecuteMsg::BurnTokens {
             denom: String::from(full_denom_name),
@@ -591,7 +589,7 @@ mod tests {
         let full_denom_name: &str =
             &format!("{}/{}/{}", DENOM_PREFIX, MOCK_CONTRACT_ADDR, DENOM_NAME)[..];
 
-        let info = mock_info("creator", &coins(2, "token"));
+        let info = message_info(&deps.api.addr_make("creator"), &coins(2, "token"));
 
         let msg = ExecuteMsg::ForceTransfer {
             denom: String::from(full_denom_name),
