@@ -1,7 +1,10 @@
 [package]
 name = "token-bindings-test"
 version = { workspace = true }
-authors = ["Ethan Frey <ethanfrey@users.noreply.github.com>", "Jake Hartnell <jakehartnell@users.noreply.github.com>"]
+authors = [
+    "Ethan Frey <ethanfrey@users.noreply.github.com>",
+    "Jake Hartnell <jakehartnell@users.noreply.github.com>",
+]
 description = "Multitest (and other test helpers) support for Token factory contracts"
 
 edition = { workspace = true }
@@ -13,9 +16,10 @@ repository = { workspace = true }
 anyhow = { workspace = true }
 cosmwasm-std = { workspace = true }
 cw-multi-test = { workspace = true }
+cw-schema = { workspace = true }
 cw-storage-plus = { workspace = true }
 itertools = { workspace = true }
-token-bindings = { workspace = true, path = "../bindings" }
 schemars = { workspace = true }
 serde = { workspace = true, default-features = false, features = ["derive"] }
 thiserror = { workspace = true }
+token-bindings = { workspace = true, path = "../bindings" }

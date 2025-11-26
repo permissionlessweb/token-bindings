@@ -1,7 +1,11 @@
 [package]
 name = "token-bindings"
 version = { workspace = true }
-authors = ["Ethan Frey <ethanfrey@users.noreply.github.com>", "Reece Williams <reecepbcups@users.noreply.github.com>", "Jake Hartnell <jakehartnell@users.noreply.github.com>"]
+authors = [
+    "Ethan Frey <ethanfrey@users.noreply.github.com>",
+    "Reece Williams <reecepbcups@users.noreply.github.com>",
+    "Jake Hartnell <jakehartnell@users.noreply.github.com>",
+]
 description = "Bindings for CustomMsg and CustomQuery for blockchains supporting Token Factory."
 keywords = ["juno", "blockchain", "token-factory", "osmosis"]
 readme = "../../README.md"
