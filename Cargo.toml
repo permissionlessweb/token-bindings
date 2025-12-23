@@ -10,7 +10,6 @@ repository = "https://github.com/CosmosContracts/token-bindings"
 version = "0.11.0"
 
 [workspace.dependencies]
-anyhow = "1"
 cosmwasm-schema = { git = "https://github.com/permissionlessweb/cosmwasm", branch = "mvp", package = "cosmwasm-schema" }
 cosmwasm-std = { git = "https://github.com/permissionlessweb/cosmwasm", branch = "mvp", features = ["cosmwasm_1_4", "stargate"] }
 cw-storage-plus = { git = "https://github.com/permissionlessweb/cw-storage-plus", branch = "mvp" }
@@ -18,7 +17,6 @@ cw-multi-test = { git = "https://github.com/permissionlessweb/cw-multi-test", br
 cw2 = { git = "https://github.com/permissionlessweb/cw-minus", branch = "mvp", package = "cw2" }
 
 itertools = "0.14.0"
-schemars = "0.8.22"
 serde = "1.0"
 thiserror = "1.0"
 

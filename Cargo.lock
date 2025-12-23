@@ -1346,20 +1346,15 @@ version = "0.11.0"
 dependencies = [
  "cosmwasm-schema",
  "cosmwasm-std",
- "schemars 0.8.22",
- "serde",
 ]
 
 [[package]]
 name = "token-bindings-test"
 version = "0.11.0"
 dependencies = [
- "anyhow",
  "cosmwasm-std",
  "cw-multi-test",
  "cw-storage-plus",
- "itertools 0.14.0",
- "schemars 0.8.22",
  "serde",
  "thiserror 1.0.69",
  "token-bindings",
@@ -1372,8 +1367,6 @@ dependencies = [
  "cosmwasm-schema",
  "cosmwasm-std",
  "cw-storage-plus",
- "schemars 0.8.22",
- "serde",
  "thiserror 1.0.69",
  "token-bindings",
 ]
@@ -1387,7 +1380,6 @@ dependencies = [
  "cw-multi-test",
  "cw-storage-plus",
  "cw2",
- "schemars 0.8.22",
  "serde",
  "thiserror 1.0.69",
  "token-bindings",
