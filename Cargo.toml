@@ -11,12 +11,12 @@ version = "0.11.0"
 
 [workspace.dependencies]
 anyhow = "1"
-cosmwasm-schema = "3.0.2"
-cosmwasm-std = "3.0.2"
-cw-multi-test  = "3.0.1"
-cw-schema = "3.0.2"
-cw-storage-plus = "3.0.1"
-cw2 = "3.0.0"
+cosmwasm-schema = { git = "https://github.com/permissionlessweb/cosmwasm", branch = "mvp", package = "cosmwasm-schema" }
+cosmwasm-std = { git = "https://github.com/permissionlessweb/cosmwasm", branch = "mvp", features = ["cosmwasm_1_4", "stargate"] }
+cw-storage-plus = { git = "https://github.com/permissionlessweb/cw-storage-plus", branch = "mvp" }
+cw-multi-test = { git = "https://github.com/permissionlessweb/cw-multi-test", branch = "mvp" }
+cw2 = { git = "https://github.com/permissionlessweb/cw-minus", branch = "mvp", package = "cw2" }
+
 itertools = "0.14.0"
 schemars = "0.8.22"
 serde = "1.0"
