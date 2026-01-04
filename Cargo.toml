@@ -16,6 +16,10 @@ cw-storage-plus = { git = "https://github.com/permissionlessweb/cw-storage-plus"
 cw-multi-test = { git = "https://github.com/permissionlessweb/cw-multi-test", branch = "mvp" }
 cw2 = { git = "https://github.com/permissionlessweb/cw-minus", branch = "mvp", package = "cw2" }
 
+#cw-storage-plus = { path = "../zk-storage-plus" }
+#cosmwasm-schema = {  path = "../zk-cosmwasm/mvp/packages/schema"  }
+#cosmwasm-std = { path = "../zk-cosmwasm/mvp/packages/std", features = ["cosmwasm_1_4", "stargate"] }
+
 itertools = "0.14.0"
 serde = "1.0"
 thiserror = "1.0"
