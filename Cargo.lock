@@ -3,6 +3,40 @@
 version = 4
 
 [[package]]
+name = "abstract-cw-multi-test"
+version = "3.0.0-rc"
+source = "git+https://github.com/permissionlessweb/cw-multi-test-fork?branch=zk-mvp#11e8d92b06e65735e8fbf099cb2833fa4edf95f1"
+dependencies = [
+ "bech32 0.11.0",
+ "cosmwasm-schema 3.0.3-dev",
+ "cosmwasm-std 3.0.3-dev",
+ "cw-storage-plus",
+ "cw-utils",
+ "cw20-ics20",
+ "hex",
+ "itertools 0.14.0",
+ "log",
+ "prost",
+ "schemars 0.8.22",
+ "serde",
+ "serde_json",
+ "sha2 0.10.9",
+ "thiserror 1.0.69",
+ "tiny-keccak",
+]
+
+[[package]]
+name = "ahash"
+version = "0.7.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "891477e0c6a8957309ee5c45a6368af3ae14bb510732d2684ffa19af310920f9"
+dependencies = [
+ "getrandom",
+ "once_cell",
+ "version_check",
+]
+
+[[package]]
 name = "ahash"
 version = "0.8.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -44,7 +78,7 @@ version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "43d68f2d516162846c1238e755a7c4d131b892b70cc70c471a8e3ca3ed818fce"
 dependencies = [
- "ahash",
+ "ahash 0.8.12",
  "ark-ff",
  "ark-poly",
  "ark-serialize",
@@ -71,7 +105,7 @@ dependencies = [
  "ark-serialize",
  "ark-std",
  "arrayvec",
- "digest",
+ "digest 0.10.7",
  "educe",
  "itertools 0.13.0",
  "num-bigint",
@@ -88,7 +122,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "62945a2f7e6de02a31fe400aa489f0e0f5b2502e69f95f853adb82a96c7a6b60"
 dependencies = [
  "quote",
- "syn",
+ "syn 2.0.111",
 ]
 
 [[package]]
@@ -101,7 +135,7 @@ dependencies = [
  "num-traits",
  "proc-macro2",
  "quote",
- "syn",
+ "syn 2.0.111",
 ]
 
 [[package]]
@@ -110,7 +144,7 @@ version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "579305839da207f02b89cd1679e50e67b4331e2f9294a57693e5051b7703fe27"
 dependencies = [
- "ahash",
+ "ahash 0.8.12",
  "ark-ff",
  "ark-serialize",
  "ark-std",
@@ -128,7 +162,7 @@ dependencies = [
  "ark-serialize-derive",
  "ark-std",
  "arrayvec",
- "digest",
+ "digest 0.10.7",
  "num-bigint",
  "rayon",
 ]
@@ -141,7 +175,7 @@ checksum = "213888f660fddcca0d257e88e54ac05bca01885f258ccdf695bafd77031bb69d"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn",
+ "syn 2.0.111",
 ]
 
 [[package]]
@@ -175,9 +209,27 @@ checksum = "4c7f02d4ea65f2c1853089ffd8d2787bdbc63de2f0d29dedbcf8ccdfa0ccd4cf"
 
 [[package]]
 name = "base64"
+version = "0.21.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9d297deb1925b89f2ccc13d7635fa0714f12c87adce1c75356b39ca9b7178567"
+
+[[package]]
+name = "base64"
 version = "0.22.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "72b3254f16251a8381aa12e40e3c4d2f0199f8c6508fbecb9d91f575e0fbb8c6"
+
+[[package]]
+name = "base64ct"
+version = "1.8.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2af50177e190e07a26ab74f8b1efbfe2ef87da2116221318cb1c2e82baf7de06"
+
+[[package]]
+name = "bech32"
+version = "0.9.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d86b93f97252c47b41663388e6d155714a9d0c398b99f1005cbc5f978b29f445"
 
 [[package]]
 name = "bech32"
@@ -187,12 +239,27 @@ checksum = "d965446196e3b7decd44aa7ee49e31d630118f90ef12f97900f262eb915c951d"
 
 [[package]]
 name = "block-buffer"
+version = "0.9.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4152116fd6e9dadb291ae18fc1ec3575ed6d84c29642d97890f4b4a3417297e4"
+dependencies = [
+ "generic-array",
+]
+
+[[package]]
+name = "block-buffer"
 version = "0.10.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3078c7629b62d3f0439517fa394996acacc5cbc91c5a20d8c658e77abd503a71"
 dependencies = [
  "generic-array",
 ]
+
+[[package]]
+name = "bnum"
+version = "0.10.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "56953345e39537a3e18bdaeba4cb0c58a78c1f61f361dc0fa7c5c7340ae87c5f"
 
 [[package]]
 name = "bnum"
@@ -227,48 +294,83 @@ checksum = "c2459377285ad874054d797f3ccebf984978aa39129f6eafde5cdc8315b612f8"
 [[package]]
 name = "cosmwasm-core"
 version = "3.0.3-dev"
-source = "git+https://github.com/permissionlessweb/cosmwasm?branch=mvp#daf40fd7a4d3b89c201fcbf83fad433c67248b3c"
+source = "git+https://github.com/permissionlessweb/cosmwasm?branch=zk-mvp#5e131c78129302f39396c3a4fb462a5501796f41"
+
+[[package]]
+name = "cosmwasm-crypto"
+version = "1.5.11"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a9c82e56962f0f18c9a292aa59940e03a82ce15ef79b93679d5838bb8143f0df"
+dependencies = [
+ "digest 0.10.7",
+ "ed25519-zebra 3.1.0",
+ "k256",
+ "rand_core 0.6.4",
+ "thiserror 1.0.69",
+]
 
 [[package]]
 name = "cosmwasm-crypto"
 version = "3.0.3-dev"
-source = "git+https://github.com/permissionlessweb/cosmwasm?branch=mvp#daf40fd7a4d3b89c201fcbf83fad433c67248b3c"
+source = "git+https://github.com/permissionlessweb/cosmwasm?branch=zk-mvp#5e131c78129302f39396c3a4fb462a5501796f41"
 dependencies = [
  "ark-bls12-381",
  "ark-ec",
  "ark-ff",
  "ark-serialize",
  "cosmwasm-core",
- "curve25519-dalek",
- "digest",
+ "curve25519-dalek 4.1.3",
+ "digest 0.10.7",
  "ecdsa",
- "ed25519-zebra",
+ "ed25519-zebra 4.0.3",
  "k256",
  "num-bigint",
  "num-traits",
  "p256",
- "rand_core",
+ "rand_core 0.6.4",
  "rayon",
- "sha2",
+ "sha2 0.10.9",
  "thiserror 1.0.69",
 ]
 
 [[package]]
 name = "cosmwasm-derive"
+version = "1.5.11"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d9b804ff15a0e059c88f85ae0e868cf8c7aba9d61221e46f1ad7250f270628c7"
+dependencies = [
+ "syn 1.0.109",
+]
+
+[[package]]
+name = "cosmwasm-derive"
 version = "3.0.3-dev"
-source = "git+https://github.com/permissionlessweb/cosmwasm?branch=mvp#daf40fd7a4d3b89c201fcbf83fad433c67248b3c"
+source = "git+https://github.com/permissionlessweb/cosmwasm?branch=zk-mvp#5e131c78129302f39396c3a4fb462a5501796f41"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn",
+ "syn 2.0.111",
+]
+
+[[package]]
+name = "cosmwasm-schema"
+version = "1.5.11"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5526ea839acb47bbf8fff031ed9aad86e74d43f77b089255417328c3664367d5"
+dependencies = [
+ "cosmwasm-schema-derive 1.5.11",
+ "schemars 0.8.22",
+ "serde",
+ "serde_json",
+ "thiserror 1.0.69",
 ]
 
 [[package]]
 name = "cosmwasm-schema"
 version = "3.0.3-dev"
-source = "git+https://github.com/permissionlessweb/cosmwasm?branch=mvp#daf40fd7a4d3b89c201fcbf83fad433c67248b3c"
+source = "git+https://github.com/permissionlessweb/cosmwasm?branch=zk-mvp#5e131c78129302f39396c3a4fb462a5501796f41"
 dependencies = [
- "cosmwasm-schema-derive",
+ "cosmwasm-schema-derive 3.0.3-dev",
  "cw-schema",
  "schemars 0.8.22",
  "serde",
@@ -278,34 +380,67 @@ dependencies = [
 
 [[package]]
 name = "cosmwasm-schema-derive"
-version = "3.0.3-dev"
-source = "git+https://github.com/permissionlessweb/cosmwasm?branch=mvp#daf40fd7a4d3b89c201fcbf83fad433c67248b3c"
+version = "1.5.11"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "10f41b99f41f840765d02ae858956bb52af910755976312082e90493c67db512"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn",
+ "syn 1.0.109",
+]
+
+[[package]]
+name = "cosmwasm-schema-derive"
+version = "3.0.3-dev"
+source = "git+https://github.com/permissionlessweb/cosmwasm?branch=zk-mvp#5e131c78129302f39396c3a4fb462a5501796f41"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.111",
+]
+
+[[package]]
+name = "cosmwasm-std"
+version = "1.5.11"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "763340055b84e5482ed90fec8194ff7d59112267a09bbf5819c9e3edca8c052e"
+dependencies = [
+ "base64 0.21.7",
+ "bech32 0.9.1",
+ "bnum 0.10.0",
+ "cosmwasm-crypto 1.5.11",
+ "cosmwasm-derive 1.5.11",
+ "derivative",
+ "forward_ref",
+ "hex",
+ "schemars 0.8.22",
+ "serde",
+ "serde-json-wasm",
+ "sha2 0.10.9",
+ "static_assertions",
+ "thiserror 1.0.69",
 ]
 
 [[package]]
 name = "cosmwasm-std"
 version = "3.0.3-dev"
-source = "git+https://github.com/permissionlessweb/cosmwasm?branch=mvp#daf40fd7a4d3b89c201fcbf83fad433c67248b3c"
+source = "git+https://github.com/permissionlessweb/cosmwasm?branch=zk-mvp#5e131c78129302f39396c3a4fb462a5501796f41"
 dependencies = [
- "base64",
- "bech32",
- "bnum",
+ "base64 0.22.1",
+ "bech32 0.11.0",
+ "bnum 0.11.0",
  "cosmwasm-core",
- "cosmwasm-crypto",
- "cosmwasm-derive",
+ "cosmwasm-crypto 3.0.3-dev",
+ "cosmwasm-derive 3.0.3-dev",
  "cw-schema",
  "derive_more",
  "hex",
- "rand_core",
+ "rand_core 0.6.4",
  "rmp-serde",
  "schemars 0.8.22",
  "serde",
  "serde_json",
- "sha2",
+ "sha2 0.10.9",
  "static_assertions",
  "thiserror 1.0.69",
 ]
@@ -345,13 +480,19 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d0a5c400df2834b80a4c3327b3aad3a4c4cd4de0629063962b03235697506a28"
 
 [[package]]
+name = "crunchy"
+version = "0.2.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "460fbee9c2c2f33933d720630a6a0bac33ba7053db5344fac858d4b8952d77d5"
+
+[[package]]
 name = "crypto-bigint"
 version = "0.5.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0dc92fb57ca44df6db8059111ab3af99a63d5d0f8375d9972e319a379c6bab76"
 dependencies = [
  "generic-array",
- "rand_core",
+ "rand_core 0.6.4",
  "subtle",
  "zeroize",
 ]
@@ -368,6 +509,19 @@ dependencies = [
 
 [[package]]
 name = "curve25519-dalek"
+version = "3.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0b9fdf9972b2bd6af2d913799d9ebc165ea4d2e65878e329d9c6b372c4491b61"
+dependencies = [
+ "byteorder",
+ "digest 0.9.0",
+ "rand_core 0.5.1",
+ "subtle",
+ "zeroize",
+]
+
+[[package]]
+name = "curve25519-dalek"
 version = "4.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "97fb8b7c4503de7d6ae7b42ab72a5a59857b4c937ec27a3d4539dba95b5ab2be"
@@ -375,7 +529,7 @@ dependencies = [
  "cfg-if",
  "cpufeatures",
  "curve25519-dalek-derive",
- "digest",
+ "digest 0.10.7",
  "fiat-crypto",
  "rustc_version",
  "subtle",
@@ -390,30 +544,27 @@ checksum = "f46882e17999c6cc590af592290432be3bce0428cb0d5f8b6715e4dc7b383eb3"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn",
+ "syn 2.0.111",
 ]
 
 [[package]]
-name = "cw-multi-test"
-version = "3.0.1"
-source = "git+https://github.com/permissionlessweb/cw-multi-test?branch=mvp#a378fab774b2d077055bd641b13ed9b532448d30"
+name = "cw-controllers"
+version = "3.0.0"
+source = "git+https://github.com/permissionlessweb/cw-minus?branch=zk-mvp#b6125eb6da6f55b48ee9cf51d8d45e9ce65dca60"
 dependencies = [
- "bech32",
- "cosmwasm-schema",
- "cosmwasm-std",
+ "cosmwasm-schema 3.0.3-dev",
+ "cosmwasm-std 3.0.3-dev",
  "cw-storage-plus",
  "cw-utils",
- "itertools 0.14.0",
- "prost",
  "schemars 0.8.22",
  "serde",
- "sha2",
+ "thiserror 2.0.17",
 ]
 
 [[package]]
 name = "cw-schema"
 version = "3.0.3-dev"
-source = "git+https://github.com/permissionlessweb/cosmwasm?branch=mvp#daf40fd7a4d3b89c201fcbf83fad433c67248b3c"
+source = "git+https://github.com/permissionlessweb/cosmwasm?branch=zk-mvp#5e131c78129302f39396c3a4fb462a5501796f41"
 dependencies = [
  "cw-schema-derive",
  "indexmap",
@@ -427,22 +578,22 @@ dependencies = [
 [[package]]
 name = "cw-schema-derive"
 version = "3.0.3-dev"
-source = "git+https://github.com/permissionlessweb/cosmwasm?branch=mvp#daf40fd7a4d3b89c201fcbf83fad433c67248b3c"
+source = "git+https://github.com/permissionlessweb/cosmwasm?branch=zk-mvp#5e131c78129302f39396c3a4fb462a5501796f41"
 dependencies = [
  "heck",
  "itertools 0.13.0",
  "owo-colors",
  "proc-macro2",
  "quote",
- "syn",
+ "syn 2.0.111",
 ]
 
 [[package]]
 name = "cw-storage-plus"
 version = "3.0.1"
-source = "git+https://github.com/permissionlessweb/cw-storage-plus?branch=mvp#1c4197e54cd3c8f4c92eaf1c29bc50202e4f3dbd"
+source = "git+https://github.com/permissionlessweb/cw-storage-plus?branch=zk-mvp#8b4b6b7a0b70ef083b73095565d72d6207f520f0"
 dependencies = [
- "cosmwasm-std",
+ "cosmwasm-std 3.0.3-dev",
  "schemars 0.8.22",
  "serde",
 ]
@@ -450,10 +601,10 @@ dependencies = [
 [[package]]
 name = "cw-utils"
 version = "3.0.0"
-source = "git+https://github.com/permissionlessweb/cw-minus?branch=mvp#72d7f4b3a06ec13ab4d3c1b1b20d047deaf8431a"
+source = "git+https://github.com/permissionlessweb/cw-minus?branch=zk-mvp#b6125eb6da6f55b48ee9cf51d8d45e9ce65dca60"
 dependencies = [
- "cosmwasm-schema",
- "cosmwasm-std",
+ "cosmwasm-schema 3.0.3-dev",
+ "cosmwasm-std 3.0.3-dev",
  "schemars 0.8.22",
  "serde",
  "thiserror 2.0.17",
@@ -462,15 +613,45 @@ dependencies = [
 [[package]]
 name = "cw2"
 version = "3.0.0"
-source = "git+https://github.com/permissionlessweb/cw-minus?branch=mvp#72d7f4b3a06ec13ab4d3c1b1b20d047deaf8431a"
+source = "git+https://github.com/permissionlessweb/cw-minus?branch=zk-mvp#b6125eb6da6f55b48ee9cf51d8d45e9ce65dca60"
 dependencies = [
- "cosmwasm-schema",
- "cosmwasm-std",
+ "cosmwasm-schema 3.0.3-dev",
+ "cosmwasm-std 3.0.3-dev",
  "cw-storage-plus",
  "schemars 0.8.22",
  "semver",
  "serde",
  "thiserror 2.0.17",
+]
+
+[[package]]
+name = "cw20"
+version = "3.0.0"
+source = "git+https://github.com/permissionlessweb/cw-plus?branch=zk-mvp#5a42dd392e8bba1b7cb44842fbbb6e9dc666bde0"
+dependencies = [
+ "cosmwasm-schema 3.0.3-dev",
+ "cosmwasm-std 3.0.3-dev",
+ "cw-utils",
+ "schemars 0.8.22",
+ "serde",
+]
+
+[[package]]
+name = "cw20-ics20"
+version = "3.0.0"
+source = "git+https://github.com/permissionlessweb/cw-plus?branch=zk-mvp#5a42dd392e8bba1b7cb44842fbbb6e9dc666bde0"
+dependencies = [
+ "cosmwasm-schema 3.0.3-dev",
+ "cosmwasm-std 3.0.3-dev",
+ "cw-controllers",
+ "cw-storage-plus",
+ "cw-utils",
+ "cw2",
+ "cw20",
+ "schemars 0.8.22",
+ "semver",
+ "serde",
+ "thiserror 1.0.69",
 ]
 
 [[package]]
@@ -494,7 +675,7 @@ dependencies = [
  "proc-macro2",
  "quote",
  "strsim",
- "syn",
+ "syn 2.0.111",
 ]
 
 [[package]]
@@ -505,7 +686,7 @@ checksum = "d38308df82d1080de0afee5d069fa14b0326a88c14f15c5ccda35b4a6c414c81"
 dependencies = [
  "darling_core",
  "quote",
- "syn",
+ "syn 2.0.111",
 ]
 
 [[package]]
@@ -516,6 +697,17 @@ checksum = "e7c1832837b905bbfb5101e07cc24c8deddf52f93225eee6ead5f4d63d53ddcb"
 dependencies = [
  "const-oid",
  "zeroize",
+]
+
+[[package]]
+name = "derivative"
+version = "2.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fcc3dd5e9e9c0b295d6e1e4d811fb6f157d5ffd784b8d202fc62eac8035a770b"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 1.0.109",
 ]
 
 [[package]]
@@ -535,8 +727,17 @@ checksum = "bda628edc44c4bb645fbe0f758797143e4e07926f7ebf4e9bdfbd3d2ce621df3"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn",
+ "syn 2.0.111",
  "unicode-xid",
+]
+
+[[package]]
+name = "digest"
+version = "0.9.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d3dd60d1080a57a05ab032377049e0591415d2b31afd7028356dbf3cc6dcb066"
+dependencies = [
+ "generic-array",
 ]
 
 [[package]]
@@ -545,7 +746,7 @@ version = "0.10.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9ed9a281f7bc9b7576e61468ba615a66a5c8cfdff42420a70aa82701a3b1e292"
 dependencies = [
- "block-buffer",
+ "block-buffer 0.10.4",
  "const-oid",
  "crypto-common",
  "subtle",
@@ -564,10 +765,11 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ee27f32b5c5292967d2d4a9d7f1e0b0aed2c15daded5a60300e4abb9d8020bca"
 dependencies = [
  "der",
- "digest",
+ "digest 0.10.7",
  "elliptic-curve",
  "rfc6979",
  "signature",
+ "spki",
 ]
 
 [[package]]
@@ -581,16 +783,31 @@ dependencies = [
 
 [[package]]
 name = "ed25519-zebra"
+version = "3.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7c24f403d068ad0b359e577a77f92392118be3f3c927538f2bb544a5ecd828c6"
+dependencies = [
+ "curve25519-dalek 3.2.0",
+ "hashbrown 0.12.3",
+ "hex",
+ "rand_core 0.6.4",
+ "serde",
+ "sha2 0.9.9",
+ "zeroize",
+]
+
+[[package]]
+name = "ed25519-zebra"
 version = "4.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7d9ce6874da5d4415896cd45ffbc4d1cfc0c4f9c079427bd870742c30f2f65a9"
 dependencies = [
- "curve25519-dalek",
+ "curve25519-dalek 4.1.3",
  "ed25519",
  "hashbrown 0.14.5",
  "hex",
- "rand_core",
- "sha2",
+ "rand_core 0.6.4",
+ "sha2 0.10.9",
  "zeroize",
 ]
 
@@ -603,7 +820,7 @@ dependencies = [
  "enum-ordinalize",
  "proc-macro2",
  "quote",
- "syn",
+ "syn 2.0.111",
 ]
 
 [[package]]
@@ -620,11 +837,12 @@ checksum = "b5e6043086bf7973472e0c7dff2142ea0b680d30e18d9cc40f267efbf222bd47"
 dependencies = [
  "base16ct",
  "crypto-bigint",
- "digest",
+ "digest 0.10.7",
  "ff",
  "generic-array",
  "group",
- "rand_core",
+ "pkcs8",
+ "rand_core 0.6.4",
  "sec1",
  "subtle",
  "zeroize",
@@ -647,7 +865,7 @@ checksum = "8ca9601fb2d62598ee17836250842873a413586e5d7ed88b356e38ddbb0ec631"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn",
+ "syn 2.0.111",
 ]
 
 [[package]]
@@ -662,7 +880,7 @@ version = "0.13.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c0b50bfb653653f9ca9095b427bed08ab8d75a137839d9ad64eb11810d5b6393"
 dependencies = [
- "rand_core",
+ "rand_core 0.6.4",
  "subtle",
 ]
 
@@ -677,6 +895,12 @@ name = "fnv"
 version = "1.0.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3f9eec918d3f24069decb9af1554cad7c880e2da24a9afd88aca000531ab82c1"
+
+[[package]]
+name = "forward_ref"
+version = "1.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c8cbd1169bd7b4a0a20d92b9af7a7e0422888bd38a6f5ec29c1fd8c1558a272e"
 
 [[package]]
 name = "generic-array"
@@ -707,8 +931,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f0f9ef7462f7c099f518d754361858f86d8a07af53ba9af0fe635bbccb151a63"
 dependencies = [
  "ff",
- "rand_core",
+ "rand_core 0.6.4",
  "subtle",
+]
+
+[[package]]
+name = "hashbrown"
+version = "0.12.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8a9ee70c43aaf417c914396645a0fa852624801b24ebb7ae78fe8272889ac888"
+dependencies = [
+ "ahash 0.7.8",
 ]
 
 [[package]]
@@ -717,7 +950,7 @@ version = "0.14.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e5274423e17b7c9fc20b6e7e208532f9b19825d82dfd615708b70edd83df41f1"
 dependencies = [
- "ahash",
+ "ahash 0.8.12",
  "allocator-api2",
 ]
 
@@ -760,7 +993,7 @@ version = "0.12.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "6c49c37c09c17a53d937dfbb742eb3a961d65a994e6bcdcf37e7399d0cc8ab5e"
 dependencies = [
- "digest",
+ "digest 0.10.7",
 ]
 
 [[package]]
@@ -829,7 +1062,9 @@ dependencies = [
  "cfg-if",
  "ecdsa",
  "elliptic-curve",
- "sha2",
+ "once_cell",
+ "sha2 0.10.9",
+ "signature",
 ]
 
 [[package]]
@@ -837,6 +1072,12 @@ name = "libc"
 version = "0.2.177"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2874a2af47a2325c2001a6e6fad9b16a53b802102b528163885171cf92b15976"
+
+[[package]]
+name = "log"
+version = "0.4.29"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5e5032e24019045c762d3c0f28f5b6b8bbf38563a65908389bf7978758920897"
 
 [[package]]
 name = "memchr"
@@ -879,6 +1120,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "42f5e15c9953c5e4ccceeb2e7382a716482c34515315f7b03532b8b4e8393d2d"
 
 [[package]]
+name = "opaque-debug"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c08d65885ee38876c4f86fa503fb49d7b507c2b62552df7c70b2fce627e06381"
+
+[[package]]
 name = "owo-colors"
 version = "4.2.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -897,7 +1144,7 @@ dependencies = [
  "ecdsa",
  "elliptic-curve",
  "primeorder",
- "sha2",
+ "sha2 0.10.9",
 ]
 
 [[package]]
@@ -905,6 +1152,16 @@ name = "paste"
 version = "1.0.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "57c0d7b74b563b49d38dae00a0c37d4d6de9b432382b2892f0574ddcae73fd0a"
+
+[[package]]
+name = "pkcs8"
+version = "0.10.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f950b2377845cebe5cf8b5165cb3cc1a5e0fa5cfa3e1f7f55707d8fd82e0a7b7"
+dependencies = [
+ "der",
+ "spki",
+]
 
 [[package]]
 name = "ppv-lite86"
@@ -953,7 +1210,7 @@ dependencies = [
  "itertools 0.14.0",
  "proc-macro2",
  "quote",
- "syn",
+ "syn 2.0.111",
 ]
 
 [[package]]
@@ -972,7 +1229,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "34af8d1a0e25924bc5b7c43c079c942339d8f0a8b57c39049bef581b46327404"
 dependencies = [
  "rand_chacha",
- "rand_core",
+ "rand_core 0.6.4",
 ]
 
 [[package]]
@@ -982,8 +1239,14 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e6c10a63a0fa32252be49d21e7709d4d4baf8d231c2dbce1eaa8141b9b127d88"
 dependencies = [
  "ppv-lite86",
- "rand_core",
+ "rand_core 0.6.4",
 ]
+
+[[package]]
+name = "rand_core"
+version = "0.5.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "90bde5296fc891b0cef12a6d03ddccc162ce7b2aff54160af9338f8d40df6d19"
 
 [[package]]
 name = "rand_core"
@@ -1031,7 +1294,7 @@ checksum = "b7186006dcb21920990093f30e3dea63b7d6e977bf1256be20c3563a5db070da"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn",
+ "syn 2.0.111",
 ]
 
 [[package]]
@@ -1115,7 +1378,7 @@ dependencies = [
  "proc-macro2",
  "quote",
  "serde_derive_internals",
- "syn",
+ "syn 2.0.111",
 ]
 
 [[package]]
@@ -1127,7 +1390,7 @@ dependencies = [
  "proc-macro2",
  "quote",
  "serde_derive_internals",
- "syn",
+ "syn 2.0.111",
 ]
 
 [[package]]
@@ -1139,6 +1402,7 @@ dependencies = [
  "base16ct",
  "der",
  "generic-array",
+ "pkcs8",
  "subtle",
  "zeroize",
 ]
@@ -1160,6 +1424,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "serde-json-wasm"
+version = "0.5.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9e9213a07d53faa0b8dd81e767a54a8188a242fdb9be99ab75ec576a774bfdd7"
+dependencies = [
+ "serde",
+]
+
+[[package]]
 name = "serde_core"
 version = "1.0.228"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1176,7 +1449,7 @@ checksum = "d540f220d3187173da220f885ab66608367b6574e925011a9353e4badda91d79"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn",
+ "syn 2.0.111",
 ]
 
 [[package]]
@@ -1187,7 +1460,7 @@ checksum = "18d26a20a969b9e3fdf2fc2d9f21eda6c40e2de84c9408bb5d3b05d499aae711"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn",
+ "syn 2.0.111",
 ]
 
 [[package]]
@@ -1222,7 +1495,20 @@ dependencies = [
  "darling",
  "proc-macro2",
  "quote",
- "syn",
+ "syn 2.0.111",
+]
+
+[[package]]
+name = "sha2"
+version = "0.9.9"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4d58a1e1bf39749807d89cf2d98ac2dfa0ff1cb3faa38fbb64dd88ac8013d800"
+dependencies = [
+ "block-buffer 0.9.0",
+ "cfg-if",
+ "cpufeatures",
+ "digest 0.9.0",
+ "opaque-debug",
 ]
 
 [[package]]
@@ -1233,7 +1519,7 @@ checksum = "a7507d819769d01a365ab707794a4084392c824f54a7a6a7862f8c3d0892b283"
 dependencies = [
  "cfg-if",
  "cpufeatures",
- "digest",
+ "digest 0.10.7",
 ]
 
 [[package]]
@@ -1242,8 +1528,8 @@ version = "2.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "77549399552de45a898a580c1b41d445bf730df867cc44e6c0233bbc4b8329de"
 dependencies = [
- "digest",
- "rand_core",
+ "digest 0.10.7",
+ "rand_core 0.6.4",
 ]
 
 [[package]]
@@ -1251,6 +1537,16 @@ name = "siphasher"
 version = "1.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "56199f7ddabf13fe5074ce809e7d3f42b42ae711800501b5b16ea82ad029c39d"
+
+[[package]]
+name = "spki"
+version = "0.7.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d91ed6c858b01f942cd56b37a94b3e0a1798290327d1236e4d9cf4eaca44d29d"
+dependencies = [
+ "base64ct",
+ "der",
+]
 
 [[package]]
 name = "static_assertions"
@@ -1291,6 +1587,17 @@ dependencies = [
 
 [[package]]
 name = "syn"
+version = "1.0.109"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "72b64191b275b66ffe2469e8af2c1cfe3bafa67b529ead792a6d0160888b4237"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "unicode-ident",
+]
+
+[[package]]
+name = "syn"
 version = "2.0.111"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "390cc9a294ab71bdb1aa2e99d13be9c753cd2d7bd6560c77118597410c4d2e87"
@@ -1326,7 +1633,7 @@ checksum = "4fee6c4efc90059e10f81e6d42c60a18f76588c3d74cb83a0b242a2b6c7504c1"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn",
+ "syn 2.0.111",
 ]
 
 [[package]]
@@ -1337,52 +1644,72 @@ checksum = "3ff15c8ecd7de3849db632e14d18d2571fa09dfc5ed93479bc4485c7a517c913"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn",
+ "syn 2.0.111",
+]
+
+[[package]]
+name = "tiny-keccak"
+version = "2.0.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2c9d3793400a45f954c52e73d068316d76b6f4e36977e3fcebb13a2721e80237"
+dependencies = [
+ "crunchy",
 ]
 
 [[package]]
 name = "token-bindings"
 version = "0.11.0"
 dependencies = [
- "cosmwasm-schema",
- "cosmwasm-std",
+ "cosmwasm-schema 3.0.3-dev",
+ "cosmwasm-std 3.0.3-dev",
+]
+
+[[package]]
+name = "token-bindings"
+version = "0.11.0"
+source = "git+https://github.com/permissionlessweb/token-bindings?branch=main#62069ac61590958cc5ca94f37157b546ca827a37"
+dependencies = [
+ "cosmwasm-schema 1.5.11",
+ "cosmwasm-std 1.5.11",
+ "schemars 0.8.22",
+ "serde",
 ]
 
 [[package]]
 name = "token-bindings-test"
 version = "0.11.0"
 dependencies = [
- "cosmwasm-std",
- "cw-multi-test",
+ "abstract-cw-multi-test",
+ "cosmwasm-std 3.0.3-dev",
  "cw-storage-plus",
  "serde",
  "thiserror 1.0.69",
- "token-bindings",
+ "token-bindings 0.11.0 (git+https://github.com/permissionlessweb/token-bindings?branch=main)",
 ]
 
 [[package]]
 name = "token-reflect"
 version = "0.11.0"
 dependencies = [
- "cosmwasm-schema",
- "cosmwasm-std",
+ "cosmwasm-schema 3.0.3-dev",
+ "cosmwasm-std 3.0.3-dev",
  "cw-storage-plus",
  "thiserror 1.0.69",
- "token-bindings",
+ "token-bindings 0.11.0 (git+https://github.com/permissionlessweb/token-bindings?branch=main)",
 ]
 
 [[package]]
 name = "tokenfactory"
 version = "0.11.0"
 dependencies = [
- "cosmwasm-schema",
- "cosmwasm-std",
- "cw-multi-test",
+ "abstract-cw-multi-test",
+ "cosmwasm-schema 3.0.3-dev",
+ "cosmwasm-std 3.0.3-dev",
  "cw-storage-plus",
  "cw2",
  "serde",
  "thiserror 1.0.69",
- "token-bindings",
+ "token-bindings 0.11.0 (git+https://github.com/permissionlessweb/token-bindings?branch=main)",
  "token-bindings-test",
 ]
 
@@ -1454,7 +1781,7 @@ checksum = "cf955aa904d6040f70dc8e9384444cb1030aed272ba3cb09bbc4ab9e7c1f34f5"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn",
+ "syn 2.0.111",
 ]
 
 [[package]]
@@ -1474,5 +1801,5 @@ checksum = "ce36e65b0d2999d2aafac989fb249189a141aee1f53c612c1f37d72631959f69"
 dependencies = [
  "proc-macro2",
  "quote",
- "syn",
+ "syn 2.0.111",
 ]

@@ -10,21 +10,16 @@ repository = "https://github.com/CosmosContracts/token-bindings"
 version = "0.11.0"
 
 [workspace.dependencies]
-cosmwasm-schema = { git = "https://github.com/permissionlessweb/cosmwasm", branch = "mvp", package = "cosmwasm-schema" }
-cosmwasm-std = { git = "https://github.com/permissionlessweb/cosmwasm", branch = "mvp", features = ["cosmwasm_1_4", "stargate"] }
-cw-storage-plus = { git = "https://github.com/permissionlessweb/cw-storage-plus", branch = "mvp" }
-cw-multi-test = { git = "https://github.com/permissionlessweb/cw-multi-test", branch = "mvp" }
-cw2 = { git = "https://github.com/permissionlessweb/cw-minus", branch = "mvp", package = "cw2" }
-
-#cw-storage-plus = { path = "../zk-storage-plus" }
-#cosmwasm-schema = {  path = "../zk-cosmwasm/mvp/packages/schema"  }
-#cosmwasm-std = { path = "../zk-cosmwasm/mvp/packages/std", features = ["cosmwasm_1_4", "stargate"] }
-
+cosmwasm-schema = { git = "https://github.com/permissionlessweb/cosmwasm", branch = "zk-mvp" }
+cosmwasm-std = { git = "https://github.com/permissionlessweb/cosmwasm", branch = "zk-mvp" }
+cw-multi-test = { package = "abstract-cw-multi-test", git = "https://github.com/permissionlessweb/cw-multi-test-fork", branch = "zk-mvp" }
+cw-storage-plus = { git = "https://github.com/permissionlessweb/cw-storage-plus", branch = "zk-mvp" }
+cw2 = { git = "https://github.com/permissionlessweb/cw-minus", branch = "zk-mvp" }
 itertools = "0.14.0"
 serde = "1.0"
 thiserror = "1.0"
 
-token-bindings = { path = "./packages/bindings", version = "0.11.0" }
+token-bindings = { git = "https://github.com/permissionlessweb/token-bindings", branch = "main" }
 token-bindings-test = { path = "./packages/bindings-test", version = "0.11.0" }
 
 [profile.release]
